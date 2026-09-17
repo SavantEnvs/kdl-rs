@@ -1,0 +1,13 @@
+project: savantenvs/kdl-rs
+target: kdl-rs-parse-buggy-mhh-run-2
+duration: 300
+
+# libfuzzer belongs on the cmd, not at the top level: a top-level `libfuzzer: true` makes Mayhem
+# reject run creation ("unable to execute the Mayhem run"), so the run never starts.
+cmds:
+  - cmd: /mayhem/kdl-rs-parse
+    libfuzzer: true
+
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/kdl-rs-parse-buggy-mhh-run-2/testsuite
